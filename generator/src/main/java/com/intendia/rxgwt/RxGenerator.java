@@ -132,8 +132,8 @@ public class RxGenerator {
                             .addParameter(Widget.class, "source")
                             .addCode(block("$[return $T.create(s -> register(s, source.$L(",
                                     Observable.class, isDom ? "addDomHandler" : "addHandler"))
-                            .addCode(generics.length == 0 ? block("s::onNext") : block("($T<$T>) s::onNext",
-                                    handler, generics[0]))
+                            .addCode(generics.length == 0 ? block("s::onNext") : block("($T) s::onNext",
+                                    ParameterizedTypeName.get(handler, generics[0])))
                             .addCode(block(", $T.getType())));\n$]", event))
                             .build();
                 });
