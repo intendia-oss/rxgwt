@@ -17,8 +17,8 @@
     <url>https://github.com/ibaca/rxgwt</url>
 
     <modules>
-        <module>core</module>
         <module>generator</module>
+        <module>core</module>
     </modules>
 
     <inceptionYear>2016</inceptionYear>
