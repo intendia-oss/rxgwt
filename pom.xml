@@ -8,7 +8,7 @@
         <version>9</version>
     </parent>
 
-    <groupId>com.intendia.gwt.rxgwt</groupId>
+    <groupId>com.intendia.gwt</groupId>
     <artifactId>rxgwt-parent</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
