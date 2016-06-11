@@ -6,7 +6,6 @@ import static com.squareup.javapoet.TypeSpec.classBuilder;
 import static java.lang.reflect.Modifier.isPublic;
 import static java.util.Arrays.stream;
 import static java.util.Comparator.comparing;
-import static java.util.stream.Stream.concat;
 
 import com.google.gwt.core.shared.GwtIncompatible;
 import com.google.gwt.event.dom.client.DomEvent;
@@ -29,6 +28,7 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -65,14 +65,24 @@ public class RxGenerator {
         ClassName rxGwt = ClassName.bestGuess("com.intendia.rxgwt.client.RxGwt");
         String packageName = rxGwt.packageName();
 
-        JavaFile.builder(packageName, classBuilder("RxEvents")
+        JavaFile.builder(packageName, classBuilder("RxWidget")
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(unused)
-                .addMethods(() -> concat(events(events, eventsWithGenericsToHandlerMap), handlers(hasHandlers))
-                        .sorted(comparing(m -> m.name)).iterator())
+                .addMethods(() -> sortByName(events(events, eventsWithGenericsToHandlerMap)))
                 .build()
         ).addStaticImport(rxGwt, "register").indent(INDENT).build().writeTo(out);
 
+        JavaFile.builder(packageName, classBuilder("RxEvents")
+                .addModifiers(Modifier.PUBLIC)
+                .addAnnotation(unused)
+                .addMethods(() -> sortByName(handlers(hasHandlers)))
+                .build()
+        ).addStaticImport(rxGwt, "register").indent(INDENT).build().writeTo(out);
+
+    }
+
+    private static Iterator<MethodSpec> sortByName(Stream<MethodSpec> methods) {
+        return methods.sorted(comparing(m -> m.name)).iterator();
     }
 
     private static Stream<MethodSpec> handlers(Set<Class<? extends HasHandlers>> handlers) {
