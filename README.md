@@ -6,3 +6,6 @@ This module adds the minimum classes to RxJava that make writing reactive compon
 hassle-free. More specifically, it provides adapters for all available events and varios operators like bufferedFinally,
 debounceFinally, etc.
 
+## Download
+
+Snapshots of the development version are available in [Sonatype's `snapshots` repository](https://oss.sonatype.org/content/repositories/snapshots/).
