@@ -7,10 +7,11 @@ import com.google.gwt.core.client.JsDate;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.dom.client.HasKeyPressHandlers;
 import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.TakesValue;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.view.client.SetSelectionModel;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.web.bindery.event.shared.HandlerRegistration;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import javax.annotation.Nullable;
 import rx.Observable;
 import rx.Subscriber;
@@ -43,9 +45,14 @@ public class RxGwt {
     }
 
     /** An observable that start with the source value and notify source value changes. */
-    public static <T> Observable<T> bindValueChange(HasValue<T> source) {
+    public static <T, V extends HasValueChangeHandlers<T> & TakesValue<T>> Observable<T> bindValueChange(V source) {
+        return bindValueChange(source, TakesValue::getValue);
+    }
+
+    /** An observable that start with the source value and notify source value changes. */
+    public static <T, V extends HasValueChangeHandlers<T>> Observable<T> bindValueChange(V source, Function<V, T> get) {
         return RxEvents.valueChange(source).map(ValueChangeEvent::getValue)
-                .startWith(defer(() -> just(source.getValue())));
+                .startWith(defer(() -> just(get.apply(source))));
     }
 
     // operators
