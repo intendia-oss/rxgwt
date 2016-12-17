@@ -5,13 +5,21 @@ import static rx.Observable.just;
 
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.event.dom.client.HasKeyPressHandlers;
+import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.user.client.Event;
+import com.google.gwt.http.client.Request;
+import com.google.gwt.http.client.RequestBuilder;
+import com.google.gwt.http.client.RequestCallback;
+import com.google.gwt.http.client.RequestException;
+import com.google.gwt.http.client.Response;
 import com.google.gwt.user.client.TakesValue;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SetSelectionModel;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.web.bindery.event.shared.HandlerRegistration;
@@ -20,19 +28,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Nullable;
 import rx.Observable;
+import rx.Single;
+import rx.SingleSubscriber;
 import rx.Subscriber;
-import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.subscriptions.Subscriptions;
 
 public class RxGwt {
-
-    // filters & binders
-
-    public static Observable<KeyPressEvent> keyPress(HasKeyPressHandlers source, char filter) {
-        return RxEvents.keyPress(source).filter(e -> filter == e.getCharCode());
-    }
 
     public static <T> Observable<Set<T>> bindSetSelectionChange(SetSelectionModel<T> source) {
         return RxEvents.selectionChange(source).map(e -> source.getSelectedSet())
@@ -55,10 +61,79 @@ public class RxGwt {
                 .startWith(defer(() -> just(get.apply(source))));
     }
 
-    // operators
+    public static <T> Observable.Operator<List<T>, T> bufferFinally() {
+        return bufferFinally(Scheduler.get());
+    }
+
+    public static <T> Observable.Operator<List<T>, T> bufferFinally(Scheduler scheduler) {
+        return new OperatorBufferFinally<>(scheduler);
+    }
 
     public static <T> Observable.Operator<T, T> debounce(long windowDuration, TimeUnit unit) {
         return new OperatorDebounceTimer<>(windowDuration, unit);
+    }
+
+    public static <T> Observable.Operator<T, T> debounceFinally() {
+        return new OperatorDebounceFinally<>(Scheduler.get());
+    }
+
+    public static <T> Observable.Operator<T, T> debounceFinally(Scheduler scheduler) {
+        return new OperatorDebounceFinally<>(scheduler);
+    }
+
+    public static Single<Response> fromRequest(RequestBuilder requestBuilder) {
+        //noinspection Convert2Lambda
+        return Single.create(new Single.OnSubscribe<Response>() {
+            @Override public void call(SingleSubscriber<? super Response> s) {
+                try {
+                    requestBuilder.setCallback(new RequestCallback() {
+                        @Override public void onResponseReceived(Request req, Response res) { s.onSuccess(res); }
+                        @Override public void onError(Request req, Throwable e) { s.onError(e); }
+                    });
+                    Request request = requestBuilder.send();
+                    s.add(Subscriptions.create(request::cancel));
+                } catch (RequestException e) {
+                    s.onError(e);
+                }
+            }
+        });
+    }
+
+    public static Single<Response> get(String url) {
+        return fromRequest(new RequestBuilder(RequestBuilder.GET, url));
+    }
+
+    public static Observable<KeyDownEvent> keyDown(Widget source, int keyCode) {
+        return RxWidget.keyDown(source).filter(e -> keyCode == e.getNativeKeyCode());
+    }
+
+    public static Observable<KeyPressEvent> keyPress(Widget source, char charCode) {
+        return RxWidget.keyPress(source).filter(e -> charCode == e.getCharCode());
+    }
+
+    public static <T> Observable.Transformer<T, T> logInfo(Logger log, Func1<? super T, String> msg) {
+        if (!log.isLoggable(Level.INFO)) return o -> o;
+        else return o -> o.doOnNext(n -> log.info(msg.call(n)));
+    }
+
+    public static void register(Subscriber s, HandlerRegistration handlerRegistration) {
+        s.add(Subscriptions.create(handlerRegistration::removeHandler));
+    }
+
+    public static Observable<CloseEvent<Window>> windowClose() {
+        return Observable.create(s -> register(s, Window.addCloseHandler(s::onNext)));
+    }
+
+    public static Observable<Window.ClosingEvent> windowClosing() {
+        return Observable.create(s -> register(s, Window.addWindowClosingHandler(s::onNext)));
+    }
+
+    public static Observable<ResizeEvent> windowResize() {
+        return Observable.create(s -> register(s, Window.addResizeHandler(s::onNext)));
+    }
+
+    public static Observable<Window.ScrollEvent> windowScroll() {
+        return Observable.create(s -> register(s, Window.addWindowScrollHandler(s::onNext)));
     }
 
     private static class OperatorDebounceTimer<T> implements Observable.Operator<T, T> {
@@ -106,14 +181,6 @@ public class RxGwt {
                 @Override public void onError(Throwable e) { child.onError(e); }
             };
         }
-    }
-
-    public static <T> Observable.Operator<T, T> debounceFinally() {
-        return new OperatorDebounceFinally<>(Scheduler.get());
-    }
-
-    public static <T> Observable.Operator<T, T> debounceFinally(Scheduler scheduler) {
-        return new OperatorDebounceFinally<>(scheduler);
     }
 
     private static class OperatorDebounceFinally<T> implements Observable.Operator<T, T> {
@@ -169,14 +236,6 @@ public class RxGwt {
         }
     }
 
-    public static <T> Observable.Operator<List<T>, T> bufferFinally() {
-        return bufferFinally(Scheduler.get());
-    }
-
-    public static <T> Observable.Operator<List<T>, T> bufferFinally(Scheduler scheduler) {
-        return new OperatorBufferFinally<>(scheduler);
-    }
-
     /**
      * This operation takes values from the specified {@link Observable} source and stores them in a buffer.
      * On "finally" (before GWT-generated code returns control to the browser's event loop) the buffer is emitted and
@@ -219,17 +278,4 @@ public class RxGwt {
             };
         }
     }
-
-    // utils
-
-    public static void register(Subscriber s, HandlerRegistration handlerRegistration) {
-        s.add(Subscriptions.create(handlerRegistration::removeHandler));
-    }
-
-    public static <T extends Event> Action1<T> consume(Action1<T> n) {
-        return e -> {
-            e.preventDefault(); e.stopPropagation(); n.call(e);
-        };
-    }
-
 }

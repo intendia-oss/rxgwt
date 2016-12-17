@@ -34,24 +34,6 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <version>0.9.10</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>com.squareup</groupId>
-            <artifactId>javapoet</artifactId>
-            <version>1.7.0</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-            <version>1.6.1</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
             <optional>true</optional>
@@ -70,12 +52,16 @@
             <plugin>
                 <groupId>net.ltgt.gwt.maven</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
-                <version>1.0-rc-6</version>
                 <extensions>true</extensions>
                 <configuration>
                     <moduleName>com.intendia.rxgwt.RxGwt</moduleName>
                     <skipModule>true</skipModule>
                 </configuration>
+            </plugin>
+            <plugin>
+                <!-- just here to make IntelliJ happy -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

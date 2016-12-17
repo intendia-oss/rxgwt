@@ -129,7 +129,7 @@ public class RxGenerator {
                     if (!type.isPresent()) {
                         return MethodSpec.methodBuilder(name).addModifiers(Modifier.PRIVATE)
                                 .addAnnotation(AnnotationSpec.builder(GwtIncompatible.class)
-                                        .addMember("value", "$S", "Private event type!").build())
+                                        .addMember("value", "$S", event + " do not have a public getType!").build())
                                 .build();
                     }
                     boolean isDom = DomEvent.class.isAssignableFrom(event);
