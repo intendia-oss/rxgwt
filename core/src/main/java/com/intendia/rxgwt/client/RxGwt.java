@@ -41,12 +41,12 @@ import rx.subscriptions.Subscriptions;
 public class RxGwt {
 
     public static <T> Observable<Set<T>> bindSetSelectionChange(SetSelectionModel<T> source) {
-        return RxEvents.selectionChange(source).map(e -> source.getSelectedSet())
+        return RxHandlers.selectionChange(source).map(e -> source.getSelectedSet())
                 .startWith(defer(() -> just(source.getSelectedSet())));
     }
 
     public static <T> Observable<T> bindSingleSelectionChange(SingleSelectionModel<T> source) {
-        return RxEvents.selectionChange(source).map(e -> source.getSelectedObject())
+        return RxHandlers.selectionChange(source).map(e -> source.getSelectedObject())
                 .startWith(defer(() -> just(source.getSelectedObject())));
     }
 
@@ -57,7 +57,7 @@ public class RxGwt {
 
     /** An observable that start with the source value and notify source value changes. */
     public static <T, V extends HasValueChangeHandlers<T>> Observable<T> bindValueChange(V source, Function<V, T> get) {
-        return RxEvents.valueChange(source).map(ValueChangeEvent::getValue)
+        return RxHandlers.valueChange(source).map(ValueChangeEvent::getValue)
                 .startWith(defer(() -> just(get.apply(source))));
     }
 
@@ -104,11 +104,11 @@ public class RxGwt {
     }
 
     public static Observable<KeyDownEvent> keyDown(Widget source, int keyCode) {
-        return RxWidget.keyDown(source).filter(e -> keyCode == e.getNativeKeyCode());
+        return RxEvents.keyDown(source).filter(e -> keyCode == e.getNativeKeyCode());
     }
 
     public static Observable<KeyPressEvent> keyPress(Widget source, char charCode) {
-        return RxWidget.keyPress(source).filter(e -> charCode == e.getCharCode());
+        return RxEvents.keyPress(source).filter(e -> charCode == e.getCharCode());
     }
 
     public static <T> Observable.Transformer<T, T> logInfo(Logger log, Func1<? super T, String> msg) {

@@ -65,14 +65,14 @@ public class RxGenerator {
         ClassName rxGwt = ClassName.bestGuess("com.intendia.rxgwt.client.RxGwt");
         String packageName = rxGwt.packageName();
 
-        JavaFile.builder(packageName, classBuilder("RxWidget")
+        JavaFile.builder(packageName, classBuilder("RxEvents")
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(unused)
                 .addMethods(() -> sortByName(events(events, eventsWithGenericsToHandlerMap)))
                 .build()
         ).addStaticImport(rxGwt, "register").indent(INDENT).build().writeTo(out);
 
-        JavaFile.builder(packageName, classBuilder("RxEvents")
+        JavaFile.builder(packageName, classBuilder("RxHandlers")
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(unused)
                 .addMethods(() -> sortByName(handlers(hasHandlers)))
