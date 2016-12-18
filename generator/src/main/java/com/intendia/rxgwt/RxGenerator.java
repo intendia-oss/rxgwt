@@ -5,7 +5,6 @@ import static com.google.common.base.CaseFormat.UPPER_CAMEL;
 import static com.squareup.javapoet.TypeSpec.classBuilder;
 import static java.lang.reflect.Modifier.isPublic;
 import static java.util.Arrays.stream;
-import static java.util.Comparator.comparing;
 
 import com.google.gwt.core.shared.GwtIncompatible;
 import com.google.gwt.event.dom.client.DomEvent;
@@ -28,6 +27,7 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
@@ -82,7 +82,9 @@ public class RxGenerator {
     }
 
     private static Iterator<MethodSpec> sortByName(Stream<MethodSpec> methods) {
-        return methods.sorted(comparing(m -> m.name)).iterator();
+        return methods
+                .sorted(Comparator.<MethodSpec, String>comparing(m -> m.name).thenComparing(Object::toString))
+                .iterator();
     }
 
     private static Stream<MethodSpec> handlers(Set<Class<? extends HasHandlers>> handlers) {

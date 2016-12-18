@@ -307,12 +307,12 @@ public class RxEvents {
         return Observable.create(s -> register(s, source.addHandler(s::onNext, RowHoverEvent.getType())));
     }
 
-    public static Observable<ScrollEvent> scroll(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, ScrollEvent.getType())));
-    }
-
     @GwtIncompatible("class com.google.gwt.user.client.Window$ScrollEvent do not have a public getType!")
     private void scroll() {
+    }
+
+    public static Observable<ScrollEvent> scroll(Widget source) {
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, ScrollEvent.getType())));
     }
 
     public static <T> Observable<SelectionEvent<T>> selection(Widget source) {
