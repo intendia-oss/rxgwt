@@ -1,12 +1,18 @@
-# RxGWT: Reactive Extensions for GWT [![Build Status](https://travis-ci.org/intendia-oss/rxgwt.svg)](https://travis-ci.org/intendia-oss/rxgwt) [![Join the chat at https://gitter.im/intendia-oss/rxgwt](https://badges.gitter.im/intendia-oss/rxgwt.svg)](https://gitter.im/intendia-oss/rxgwt?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# RxGWT: Reactive Extensions for GWT 
 
-GWT specific bindings for [RxJava](http://github.com/ReactiveX/RxJava).
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.intendia.gwt.rxgwt/rxgwt-parent/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.intendia.gwt.rxgwt/rxgwt-parent)
+[![Build Status](https://travis-ci.org/intendia-oss/rxgwt.svg)](https://travis-ci.org/intendia-oss/rxgwt) 
+[![Join the chat at https://gitter.im/intendia-oss/rxgwt](https://badges.gitter.im/intendia-oss/rxgwt.svg)](https://gitter.im/intendia-oss/rxgwt?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+GWT specific bindings for [RxJava](http://github.com/ReactiveX/RxJava) (requires [RxJava GWT](https://github.com/intendia-oss/rxjava-gwt)). 
 
 This module adds the minimum classes to RxJava that make writing reactive components in GWT applications easy and 
 hassle-free. More specifically, it provides adapters for all available events and various operators like bufferedFinally,
 debounceFinally, etc.
 
 ## Download
+
+Releases are deployed to [the Central Repository](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.intendia.gwt.rxgwt%22).
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository](https://oss.sonatype.org/content/repositories/snapshots/).
 
@@ -38,13 +44,13 @@ Observable<String> erase$ = keyPress(canvas, '2').map(e -> "erase");
 
 All the `mouseMove`, `mouseDown`, `tochMove`, `touchStart`, `touchEnd` and `keyPress` static methods are exposed by the 
 RxGWT API. To find all of them just explore [RxGwt](https://github.com/intendia-oss/rxgwt/blob/master/core/src/main/java/com/intendia/rxgwt/client/RxGwt.java), 
-or [RxWidget](https://github.com/intendia-oss/rxgwt/blob/master/core/src/main/java/com/intendia/rxgwt/client/RxWidget.java) 
+or [RxHandlers](https://github.com/intendia-oss/rxgwt/blob/master/core/src/main/java/com/intendia/rxgwt/client/RxHandlers.java) 
 and [RxEvents](https://github.com/intendia-oss/rxgwt/blob/master/core/src/main/java/com/intendia/rxgwt/client/RxEvents.java).
-RxWidgets and RxEvents are [auto-generated](https://github.com/intendia-oss/rxgwt/blob/master/generator/src/main/java/com/intendia/rxgwt/RxGenerator.java) 
+RxEvents and RxHandlers are [auto-generated](https://github.com/intendia-oss/rxgwt/blob/master/generator/src/main/java/com/intendia/rxgwt/RxGenerator.java) 
 using all classes in `gwt-user` extending from [Events](https://github.com/gwtproject/gwt/blob/master/user/src/com/google/web/bindery/event/shared/Event.java)
 and [HasValue](https://github.com/gwtproject/gwt/blob/master/user/src/com/google/gwt/event/shared/HasHandlers.java) respectively.
  
- You can see this complete code example here [RxCanvas](https://github.com/ibaca/rxcanvas-gwt/blob/master/src/main/java/rxcanvas/client/RxCanvas.java),
- or other interesting one in [RxSnake](https://github.com/ibaca/rxsnake-gwt).
+You can see this complete code example here [RxCanvas](https://github.com/ibaca/rxcanvas-gwt/blob/master/src/main/java/rxcanvas/client/RxCanvas.java),
+or other interesting one in [RxSnake](https://github.com/ibaca/rxsnake-gwt).
 
 
