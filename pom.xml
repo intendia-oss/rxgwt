@@ -14,7 +14,7 @@
     <packaging>pom</packaging>
 
     <name>RxGWT Parent</name>
-    <url>https://github.com/ibaca/rxgwt</url>
+    <url>https://github.com/intendia-oss/rxgwt</url>
 
     <modules>
         <module>core</module>
@@ -38,9 +38,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:https://github.com/ibaca/rxgwt.git</connection>
-        <developerConnection>scm:git:git@github.com:ibaca/rxgwt.git</developerConnection>
-        <url>https://github.com/ibaca/rxgwt</url>
+        <connection>scm:git:https://github.com/intendia-oss/rxgwt.git</connection>
+        <developerConnection>scm:git:git@github.com:intendia-oss/rxgwt.git</developerConnection>
+        <url>https://github.com/intendia-oss/rxgwt</url>
         <tag>HEAD</tag>
     </scm>
 
