@@ -103,6 +103,7 @@ import com.google.gwt.view.client.RangeChangeEvent;
 import com.google.gwt.view.client.RowCountChangeEvent;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SelectionModel;
+import java.lang.SuppressWarnings;
 import rx.Observable;
 
 @SuppressWarnings("unused")
@@ -283,11 +284,11 @@ public class RxHandlers {
         return Observable.create(s -> register(s, source.addSelectionHandler(s::onNext)));
     }
 
-    public static Observable<SelectionChangeEvent> selectionChange(SelectionModel source) {
+    public static Observable<SelectionChangeEvent> selectionChange(SelectionChangeEvent.HasSelectionChangedHandlers source) {
         return Observable.create(s -> register(s, source.addSelectionChangeHandler(s::onNext)));
     }
 
-    public static Observable<SelectionChangeEvent> selectionChange(SelectionChangeEvent.HasSelectionChangedHandlers source) {
+    public static Observable<SelectionChangeEvent> selectionChange(SelectionModel source) {
         return Observable.create(s -> register(s, source.addSelectionChangeHandler(s::onNext)));
     }
 

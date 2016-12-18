@@ -17,8 +17,9 @@
     <url>https://github.com/ibaca/rxgwt</url>
 
     <modules>
-        <module>generator</module>
         <module>core</module>
+        <module>examples</module>
+        <module>generator</module>
     </modules>
 
     <inceptionYear>2016</inceptionYear>
@@ -128,6 +129,10 @@
                     <artifactId>gwt-maven-plugin</artifactId>
                     <version>1.0-rc-6</version>
                     <extensions>true</extensions>
+                    <configuration>
+                        <skipModule>true</skipModule>
+                        <extra>${project.build.directory}/gwt/extra</extra>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <!-- just here to make IntelliJ happy -->
@@ -177,6 +182,17 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>net.ltgt.gwt.maven</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
+                <inherited>false</inherited>
+                <configuration>
+                    <startupUrls>
+                        <startupUrl>/</startupUrl>
+                    </startupUrls>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 </project>

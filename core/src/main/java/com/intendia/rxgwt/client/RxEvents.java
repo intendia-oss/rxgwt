@@ -66,6 +66,7 @@ import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.RangeChangeEvent;
 import com.google.gwt.view.client.RowCountChangeEvent;
 import com.google.gwt.view.client.SelectionChangeEvent;
+import java.lang.SuppressWarnings;
 import rx.Observable;
 
 @SuppressWarnings("unused")
