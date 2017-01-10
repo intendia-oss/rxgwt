@@ -6,9 +6,9 @@
         <artifactId>rxgwt-examples</artifactId>
         <version>HEAD-SNAPSHOT</version>
     </parent>
-    <artifactId>rxgwt-example-elemental</artifactId>
+    <artifactId>rxgwt-example-widgets</artifactId>
     <packaging>gwt-app</packaging>
-    <name>RxGWT :: Examples :: Elemental</name>
+    <name>RxGWT :: Examples :: Widgets</name>
 
     <dependencies>
         <dependency>
@@ -30,10 +30,6 @@
             <artifactId>gwt-dev</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-elemental</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
         </dependency>
@@ -45,7 +41,7 @@
                 <groupId>net.ltgt.gwt.maven</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
                 <configuration>
-                    <moduleName>com.intendia.rxgwt.example.ElementalExample</moduleName>
+                    <moduleName>com.intendia.rxgwt.example.WidgetExample</moduleName>
                 </configuration>
             </plugin>
             <plugin>

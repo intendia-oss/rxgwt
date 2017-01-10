@@ -1,0 +1,13 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:HTMLPanel>
+        <g:Button ui:field="simpleButton">Click me</g:Button>
+        <g:ToggleButton ui:field="toggleButton">Push me</g:ToggleButton>
+        <g:ListBox ui:field="listButton">
+            <g:item>A</g:item>
+            <g:item>B</g:item>
+            <g:item>C</g:item>
+        </g:ListBox>
+        <g:Label ui:field="result"/>
+    </g:HTMLPanel>
+</ui:UiBinder>

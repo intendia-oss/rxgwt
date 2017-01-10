@@ -1,7 +1,12 @@
 package com.intendia.rxgwt.client;
 
+import static java.lang.Math.min;
+import static java.util.concurrent.TimeUnit.MINUTES;
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static rx.Observable.defer;
+import static rx.Observable.error;
 import static rx.Observable.just;
+import static rx.Observable.timer;
 
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.core.client.Scheduler;
@@ -35,10 +40,12 @@ import rx.Observable;
 import rx.Single;
 import rx.SingleSubscriber;
 import rx.Subscriber;
+import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.subscriptions.Subscriptions;
 
 public class RxGwt {
+    public static long MAX_RETRY_TIME = MINUTES.toSeconds(1);
 
     public static <T> Observable<Set<T>> bindSetSelectionChange(SetSelectionModel<T> source) {
         return RxHandlers.selectionChange(source).map(e -> source.getSelectedSet())
@@ -120,6 +127,24 @@ public class RxGwt {
         s.add(Subscriptions.create(handlerRegistration::removeHandler));
     }
 
+    public static <T> Observable.Transformer<T, T> retryDelay(Logger log, Level level, String msg) {
+        return retryDelay(a -> log.log(level, msg + " (" + a.idx + " attempt)", a.err));
+    }
+
+    public static <T> Observable.Transformer<T, T> retryDelay(Action1<Attempt> onAttempt) {
+        return retryDelay(onAttempt, Integer.MAX_VALUE);
+    }
+
+    public static <T> Observable.Transformer<T, T> retryDelay(Action1<Attempt> onAttempt, int maxRetry) {
+        return o -> o.retryWhen(attempts -> attempts
+                .zipWith(Observable.range(1, maxRetry), (err, i) -> new Attempt(i, err))
+                .flatMap((Attempt x) -> {
+                    if (x.idx > maxRetry) return error(x.err);
+                    onAttempt.call(x);
+                    return timer(min(x.idx * x.idx, MAX_RETRY_TIME), SECONDS);
+                }));
+    }
+
     public static Observable<CloseEvent<Window>> windowClose() {
         return Observable.create(s -> register(s, Window.addCloseHandler(s::onNext)));
     }
@@ -134,6 +159,15 @@ public class RxGwt {
 
     public static Observable<Window.ScrollEvent> windowScroll() {
         return Observable.create(s -> register(s, Window.addWindowScrollHandler(s::onNext)));
+    }
+
+    public static class Attempt {
+        public final int idx;
+        public final Throwable err;
+        public Attempt(int idx, Throwable err) {
+            this.idx = idx;
+            this.err = err;
+        }
     }
 
     private static class OperatorDebounceTimer<T> implements Observable.Operator<T, T> {
