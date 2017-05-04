@@ -12,10 +12,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.reactivex</groupId>
-            <artifactId>rxjava</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.intendia.gwt</groupId>
             <artifactId>rxjava-gwt</artifactId>
         </dependency>
