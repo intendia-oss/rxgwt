@@ -5,6 +5,7 @@ import static com.google.common.base.CaseFormat.UPPER_CAMEL;
 import static com.squareup.javapoet.TypeSpec.classBuilder;
 import static java.lang.reflect.Modifier.isPublic;
 import static java.util.Arrays.stream;
+import static javax.lang.model.element.Modifier.PUBLIC;
 
 import com.google.gwt.core.shared.GwtIncompatible;
 import com.google.gwt.event.dom.client.DomEvent;
@@ -63,22 +64,20 @@ public class RxGenerator {
                 .collect(Collectors.toMap(o -> o[0], o -> o[1]));
 
         ClassName rxGwt = ClassName.bestGuess("com.intendia.rxgwt.client.RxGwt");
-        String packageName = rxGwt.packageName();
+        ClassName rxUser = ClassName.bestGuess("com.intendia.rxgwt.user.RxUser");
+        String packageName = "com.intendia.rxgwt.user";
 
         JavaFile.builder(packageName, classBuilder("RxEvents")
-                .addModifiers(Modifier.PUBLIC)
-                .addAnnotation(unused)
-                .addMethods(() -> sortByName(events(events, eventsWithGenericsToHandlerMap)))
-                .build()
-        ).addStaticImport(rxGwt, "register").indent(INDENT).build().writeTo(out);
+                .addModifiers(PUBLIC).addAnnotation(unused)
+                .addMethods(() -> sortByName(events(events, eventsWithGenericsToHandlerMap))).build()
+        ).indent(INDENT).addStaticImport(rxUser, "register").addStaticImport(rxGwt, "uiBackpressureMode").build()
+                .writeTo(out);
 
         JavaFile.builder(packageName, classBuilder("RxHandlers")
-                .addModifiers(Modifier.PUBLIC)
-                .addAnnotation(unused)
-                .addMethods(() -> sortByName(handlers(hasHandlers)))
-                .build()
-        ).addStaticImport(rxGwt, "register").indent(INDENT).build().writeTo(out);
-
+                .addModifiers(PUBLIC).addAnnotation(unused)
+                .addMethods(() -> sortByName(handlers(hasHandlers))).build()
+        ).indent(INDENT).addStaticImport(rxUser, "register").addStaticImport(rxGwt, "uiBackpressureMode").build()
+                .writeTo(out);
     }
 
     private static Iterator<MethodSpec> sortByName(Stream<MethodSpec> methods) {
@@ -105,11 +104,12 @@ public class RxGenerator {
                     String name = UPPER_CAMEL.to(LOWER_CAMEL, eventName.call(addHandler));
                     Class<?> event = addHandler.getParameterTypes()[0].getMethods()[0].getParameterTypes()[0];
                     TypeVariable<? extends Class<?>>[] generics = event.getTypeParameters();
-                    return MethodSpec.methodBuilder(name).addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                    return MethodSpec.methodBuilder(name).addModifiers(PUBLIC, Modifier.STATIC)
                             .addTypeVariables(() -> stream(generics).map(TypeVariableName::get).iterator())
                             .returns(observableOf(event))
                             .addParameter(typeName(addHandler.getDeclaringClass(), generics), "source")
-                            .addStatement("return $T.create(s -> register(s, source.$L(s::onNext)))",
+                            .addStatement(
+                                    "return $T.create(s -> register(s, source.$L(s::onNext)), uiBackpressureMode())",
                                     Observable.class, addHandler.getName())
                             .build();
                 });
@@ -138,7 +138,7 @@ public class RxGenerator {
                     TypeVariable<? extends Class<? extends Event>>[] generics = event.getTypeParameters();
                     Class<?> handler = eventToHandlerIndex.get(event); // only non null for events with generics
                     return MethodSpec.methodBuilder(name)
-                            .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                            .addModifiers(PUBLIC, Modifier.STATIC)
                             .addTypeVariables(() -> stream(generics).map(TypeVariableName::get).iterator())
                             .returns(observableOf(event))
                             .addParameter(Widget.class, "source")
@@ -146,7 +146,7 @@ public class RxGenerator {
                                     Observable.class, isDom ? "addDomHandler" : "addHandler"))
                             .addCode(generics.length == 0 ? block("s::onNext") : block("($T) s::onNext",
                                     ParameterizedTypeName.get(handler, generics[0])))
-                            .addCode(block(", $T.getType())));\n$]", event))
+                            .addCode(block(", $T.getType())), uiBackpressureMode());\n$]", event))
                             .build();
                 });
     }

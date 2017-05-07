@@ -1,4 +1,4 @@
-package com.intendia.rxgwt.client;
+package com.intendia.rxgwt.user;
 
 import static com.google.gwt.core.client.GWT.log;
 import static com.intendia.rxgwt.client.RxGwt.retryDelay;

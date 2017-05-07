@@ -1,8 +1,8 @@
 package com.intendia.rxgwt.example.client;
 
-import static com.intendia.rxgwt.client.RxHandlers.change;
-import static com.intendia.rxgwt.client.RxHandlers.click;
-import static com.intendia.rxgwt.client.RxHandlers.valueChange;
+import static com.intendia.rxgwt.user.RxHandlers.change;
+import static com.intendia.rxgwt.user.RxHandlers.click;
+import static com.intendia.rxgwt.user.RxHandlers.valueChange;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.ToggleButton;
-import com.intendia.rxgwt.client.RxWidget;
+import com.intendia.rxgwt.user.RxWidget;
 import java.util.function.Consumer;
 import rx.Observable;
 

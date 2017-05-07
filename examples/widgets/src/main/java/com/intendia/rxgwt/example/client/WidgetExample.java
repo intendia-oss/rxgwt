@@ -1,7 +1,7 @@
 package com.intendia.rxgwt.example.client;
 
 import static com.google.gwt.dom.client.Style.WhiteSpace.NOWRAP;
-import static com.intendia.rxgwt.client.RxHandlers.selection;
+import static com.intendia.rxgwt.user.RxHandlers.selection;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.Composite;
@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.NotificationMole;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TabBar;
-import com.intendia.rxgwt.client.RxWidget;
+import com.intendia.rxgwt.user.RxWidget;
 import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.subjects.PublishSubject;

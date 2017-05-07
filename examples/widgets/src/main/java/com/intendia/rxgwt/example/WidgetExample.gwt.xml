@@ -2,7 +2,7 @@
 <module rename-to="widget">
     <inherits name="com.google.gwt.user.theme.clean.Clean"/>
     <inherits name="com.google.gwt.user.User"/>
-    <inherits name="com.intendia.rxgwt.RxGwt"/>
+    <inherits name="com.intendia.rxgwt.RxUser"/>
 
     <entry-point class="com.intendia.rxgwt.example.client.WidgetExample"/>
 

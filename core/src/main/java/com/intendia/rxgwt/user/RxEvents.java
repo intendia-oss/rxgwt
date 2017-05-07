@@ -1,6 +1,7 @@
-package com.intendia.rxgwt.client;
+package com.intendia.rxgwt.user;
 
-import static com.intendia.rxgwt.client.RxGwt.register;
+import static com.intendia.rxgwt.client.RxGwt.uiBackpressureMode;
+import static com.intendia.rxgwt.user.RxUser.register;
 
 import com.google.gwt.core.shared.GwtIncompatible;
 import com.google.gwt.event.dom.client.BlurEvent;
@@ -72,35 +73,35 @@ import rx.Observable;
 @SuppressWarnings("unused")
 public class RxEvents {
     public static Observable<AttachEvent> attach(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler(s::onNext, AttachEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler(s::onNext, AttachEvent.getType())), uiBackpressureMode());
     }
 
     public static <T> Observable<BeforeSelectionEvent<T>> beforeSelection(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler((BeforeSelectionHandler<T>) s::onNext, BeforeSelectionEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler((BeforeSelectionHandler<T>) s::onNext, BeforeSelectionEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<BlurEvent> blur(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, BlurEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, BlurEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<CanPlayThroughEvent> canPlayThrough(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, CanPlayThroughEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, CanPlayThroughEvent.getType())), uiBackpressureMode());
     }
 
     public static <T> Observable<CellPreviewEvent<T>> cellPreview(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler((CellPreviewEvent.Handler<T>) s::onNext, CellPreviewEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler((CellPreviewEvent.Handler<T>) s::onNext, CellPreviewEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<ChangeEvent> change(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, ChangeEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, ChangeEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<ClickEvent> click(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, ClickEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, ClickEvent.getType())), uiBackpressureMode());
     }
 
     public static <T> Observable<CloseEvent<T>> close(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler((CloseHandler<T>) s::onNext, CloseEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler((CloseHandler<T>) s::onNext, CloseEvent.getType())), uiBackpressureMode());
     }
 
     @GwtIncompatible("class com.google.gwt.user.client.Window$ClosingEvent do not have a public getType!")
@@ -108,11 +109,11 @@ public class RxEvents {
     }
 
     public static Observable<ColumnSortEvent> columnSort(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler(s::onNext, ColumnSortEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler(s::onNext, ColumnSortEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<ContextMenuEvent> contextMenu(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, ContextMenuEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, ContextMenuEvent.getType())), uiBackpressureMode());
     }
 
     @GwtIncompatible("class com.google.gwt.user.datepicker.client.DateChangeEvent do not have a public getType!")
@@ -128,11 +129,11 @@ public class RxEvents {
     }
 
     public static Observable<DoubleClickEvent> doubleClick(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, DoubleClickEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, DoubleClickEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<DragEvent> drag(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, DragEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, DragEvent.getType())), uiBackpressureMode());
     }
 
     @GwtIncompatible("class com.google.gwt.event.dom.client.DragDropEventBase do not have a public getType!")
@@ -140,51 +141,51 @@ public class RxEvents {
     }
 
     public static Observable<DragEndEvent> dragEnd(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, DragEndEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, DragEndEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<DragEnterEvent> dragEnter(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, DragEnterEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, DragEnterEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<DragLeaveEvent> dragLeave(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, DragLeaveEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, DragLeaveEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<DragOverEvent> dragOver(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, DragOverEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, DragOverEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<DragStartEvent> dragStart(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, DragStartEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, DragStartEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<DropEvent> drop(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, DropEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, DropEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<EndedEvent> ended(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, EndedEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, EndedEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<ErrorEvent> error(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, ErrorEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, ErrorEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<FocusEvent> focus(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, FocusEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, FocusEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<GestureChangeEvent> gestureChange(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, GestureChangeEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, GestureChangeEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<GestureEndEvent> gestureEnd(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, GestureEndEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, GestureEndEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<GestureStartEvent> gestureStart(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, GestureStartEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, GestureStartEvent.getType())), uiBackpressureMode());
     }
 
     @GwtIncompatible("class com.google.gwt.event.shared.GwtEvent do not have a public getType!")
@@ -192,7 +193,7 @@ public class RxEvents {
     }
 
     public static <V> Observable<HighlightEvent<V>> highlight(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler((HighlightHandler<V>) s::onNext, HighlightEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler((HighlightHandler<V>) s::onNext, HighlightEvent.getType())), uiBackpressureMode());
     }
 
     @GwtIncompatible("class com.google.gwt.event.dom.client.HumanInputEvent do not have a public getType!")
@@ -200,7 +201,7 @@ public class RxEvents {
     }
 
     public static Observable<InitializeEvent> initialize(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler(s::onNext, InitializeEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler(s::onNext, InitializeEvent.getType())), uiBackpressureMode());
     }
 
     @GwtIncompatible("class com.google.gwt.event.dom.client.KeyEvent do not have a public getType!")
@@ -212,23 +213,23 @@ public class RxEvents {
     }
 
     public static Observable<KeyDownEvent> keyDown(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, KeyDownEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, KeyDownEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<KeyPressEvent> keyPress(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, KeyPressEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, KeyPressEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<KeyUpEvent> keyUp(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, KeyUpEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, KeyUpEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<LoadEvent> load(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, LoadEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, LoadEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<LoadedMetadataEvent> loadedMetadata(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, LoadedMetadataEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, LoadedMetadataEvent.getType())), uiBackpressureMode());
     }
 
     @GwtIncompatible("class com.google.gwt.user.cellview.client.LoadingStateChangeEvent do not have a public getType!")
@@ -236,7 +237,7 @@ public class RxEvents {
     }
 
     public static Observable<LoseCaptureEvent> loseCapture(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, LoseCaptureEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, LoseCaptureEvent.getType())), uiBackpressureMode());
     }
 
     @GwtIncompatible("class com.google.gwt.event.dom.client.MouseEvent do not have a public getType!")
@@ -244,35 +245,35 @@ public class RxEvents {
     }
 
     public static Observable<MouseDownEvent> mouseDown(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, MouseDownEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, MouseDownEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<MouseMoveEvent> mouseMove(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, MouseMoveEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, MouseMoveEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<MouseOutEvent> mouseOut(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, MouseOutEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, MouseOutEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<MouseOverEvent> mouseOver(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, MouseOverEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, MouseOverEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<MouseUpEvent> mouseUp(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, MouseUpEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, MouseUpEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<MouseWheelEvent> mouseWheel(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, MouseWheelEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, MouseWheelEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<Event.NativePreviewEvent> nativePreview(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler(s::onNext, Event.NativePreviewEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler(s::onNext, Event.NativePreviewEvent.getType())), uiBackpressureMode());
     }
 
     public static <T> Observable<OpenEvent<T>> open(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler((OpenHandler<T>) s::onNext, OpenEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler((OpenHandler<T>) s::onNext, OpenEvent.getType())), uiBackpressureMode());
     }
 
     @GwtIncompatible("class com.google.gwt.place.shared.PlaceChangeEvent do not have a public getType!")
@@ -284,11 +285,11 @@ public class RxEvents {
     }
 
     public static Observable<ProgressEvent> progress(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, ProgressEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, ProgressEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<RangeChangeEvent> rangeChange(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler(s::onNext, RangeChangeEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler(s::onNext, RangeChangeEvent.getType())), uiBackpressureMode());
     }
 
     @GwtIncompatible("class com.google.gwt.user.cellview.client.AbstractHasData$RedrawEvent do not have a public getType!")
@@ -296,15 +297,15 @@ public class RxEvents {
     }
 
     public static Observable<ResizeEvent> resize(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler(s::onNext, ResizeEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler(s::onNext, ResizeEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<RowCountChangeEvent> rowCountChange(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler(s::onNext, RowCountChangeEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler(s::onNext, RowCountChangeEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<RowHoverEvent> rowHover(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler(s::onNext, RowHoverEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler(s::onNext, RowHoverEvent.getType())), uiBackpressureMode());
     }
 
     @GwtIncompatible("class com.google.gwt.user.client.Window$ScrollEvent do not have a public getType!")
@@ -312,27 +313,27 @@ public class RxEvents {
     }
 
     public static Observable<ScrollEvent> scroll(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, ScrollEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, ScrollEvent.getType())), uiBackpressureMode());
     }
 
     public static <T> Observable<SelectionEvent<T>> selection(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler((SelectionHandler<T>) s::onNext, SelectionEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler((SelectionHandler<T>) s::onNext, SelectionEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<SelectionChangeEvent> selectionChange(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler(s::onNext, SelectionChangeEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler(s::onNext, SelectionChangeEvent.getType())), uiBackpressureMode());
     }
 
     public static <V> Observable<ShowRangeEvent<V>> showRange(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler((ShowRangeHandler<V>) s::onNext, ShowRangeEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler((ShowRangeHandler<V>) s::onNext, ShowRangeEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<FormPanel.SubmitEvent> submit(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler(s::onNext, FormPanel.SubmitEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler(s::onNext, FormPanel.SubmitEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<FormPanel.SubmitCompleteEvent> submitComplete(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler(s::onNext, FormPanel.SubmitCompleteEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler(s::onNext, FormPanel.SubmitCompleteEvent.getType())), uiBackpressureMode());
     }
 
     @GwtIncompatible("class com.google.gwt.event.dom.client.TouchEvent do not have a public getType!")
@@ -340,22 +341,22 @@ public class RxEvents {
     }
 
     public static Observable<TouchCancelEvent> touchCancel(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, TouchCancelEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, TouchCancelEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<TouchEndEvent> touchEnd(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, TouchEndEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, TouchEndEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<TouchMoveEvent> touchMove(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, TouchMoveEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, TouchMoveEvent.getType())), uiBackpressureMode());
     }
 
     public static Observable<TouchStartEvent> touchStart(Widget source) {
-        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, TouchStartEvent.getType())));
+        return Observable.create(s -> register(s, source.addDomHandler(s::onNext, TouchStartEvent.getType())), uiBackpressureMode());
     }
 
     public static <T> Observable<ValueChangeEvent<T>> valueChange(Widget source) {
-        return Observable.create(s -> register(s, source.addHandler((ValueChangeHandler<T>) s::onNext, ValueChangeEvent.getType())));
+        return Observable.create(s -> register(s, source.addHandler((ValueChangeHandler<T>) s::onNext, ValueChangeEvent.getType())), uiBackpressureMode());
     }
 }

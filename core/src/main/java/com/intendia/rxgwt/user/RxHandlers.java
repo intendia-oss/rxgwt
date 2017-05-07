@@ -1,6 +1,7 @@
-package com.intendia.rxgwt.client;
+package com.intendia.rxgwt.user;
 
-import static com.intendia.rxgwt.client.RxGwt.register;
+import static com.intendia.rxgwt.client.RxGwt.uiBackpressureMode;
+import static com.intendia.rxgwt.user.RxUser.register;
 
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.CanPlayThroughEvent;
@@ -109,210 +110,210 @@ import rx.Observable;
 @SuppressWarnings("unused")
 public class RxHandlers {
     public static Observable<AttachEvent> attach(HasAttachHandlers source) {
-        return Observable.create(s -> register(s, source.addAttachHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addAttachHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static <T> Observable<BeforeSelectionEvent<T>> beforeSelection(HasBeforeSelectionHandlers<T> source) {
-        return Observable.create(s -> register(s, source.addBeforeSelectionHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addBeforeSelectionHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<BlurEvent> blur(HasBlurHandlers source) {
-        return Observable.create(s -> register(s, source.addBlurHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addBlurHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<CanPlayThroughEvent> canPlayThrough(HasCanPlayThroughHandlers source) {
-        return Observable.create(s -> register(s, source.addCanPlayThroughHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addCanPlayThroughHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static <T> Observable<CellPreviewEvent<T>> cellPreview(HasCellPreviewHandlers<T> source) {
-        return Observable.create(s -> register(s, source.addCellPreviewHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addCellPreviewHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<ChangeEvent> change(HasChangeHandlers source) {
-        return Observable.create(s -> register(s, source.addChangeHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addChangeHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<ClickEvent> click(HasClickHandlers source) {
-        return Observable.create(s -> register(s, source.addClickHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addClickHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static <T> Observable<CloseEvent<T>> close(HasCloseHandlers<T> source) {
-        return Observable.create(s -> register(s, source.addCloseHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addCloseHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<ContextMenuEvent> contextMenu(HasContextMenuHandlers source) {
-        return Observable.create(s -> register(s, source.addContextMenuHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addContextMenuHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<DoubleClickEvent> doubleClick(HasDoubleClickHandlers source) {
-        return Observable.create(s -> register(s, source.addDoubleClickHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addDoubleClickHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<DragEvent> drag(HasDragHandlers source) {
-        return Observable.create(s -> register(s, source.addDragHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addDragHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<DragEndEvent> dragEnd(HasDragEndHandlers source) {
-        return Observable.create(s -> register(s, source.addDragEndHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addDragEndHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<DragEnterEvent> dragEnter(HasDragEnterHandlers source) {
-        return Observable.create(s -> register(s, source.addDragEnterHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addDragEnterHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<DragLeaveEvent> dragLeave(HasDragLeaveHandlers source) {
-        return Observable.create(s -> register(s, source.addDragLeaveHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addDragLeaveHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<DragOverEvent> dragOver(HasDragOverHandlers source) {
-        return Observable.create(s -> register(s, source.addDragOverHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addDragOverHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<DragStartEvent> dragStart(HasDragStartHandlers source) {
-        return Observable.create(s -> register(s, source.addDragStartHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addDragStartHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<DropEvent> drop(HasDropHandlers source) {
-        return Observable.create(s -> register(s, source.addDropHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addDropHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<EndedEvent> ended(HasEndedHandlers source) {
-        return Observable.create(s -> register(s, source.addEndedHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addEndedHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<ErrorEvent> error(HasErrorHandlers source) {
-        return Observable.create(s -> register(s, source.addErrorHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addErrorHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<FocusEvent> focus(HasFocusHandlers source) {
-        return Observable.create(s -> register(s, source.addFocusHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addFocusHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<GestureChangeEvent> gestureChange(HasGestureChangeHandlers source) {
-        return Observable.create(s -> register(s, source.addGestureChangeHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addGestureChangeHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<GestureEndEvent> gestureEnd(HasGestureEndHandlers source) {
-        return Observable.create(s -> register(s, source.addGestureEndHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addGestureEndHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<GestureStartEvent> gestureStart(HasGestureStartHandlers source) {
-        return Observable.create(s -> register(s, source.addGestureStartHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addGestureStartHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static <V> Observable<HighlightEvent<V>> highlight(HasHighlightHandlers<V> source) {
-        return Observable.create(s -> register(s, source.addHighlightHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addHighlightHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<InitializeEvent> initialize(HasInitializeHandlers source) {
-        return Observable.create(s -> register(s, source.addInitializeHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addInitializeHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<KeyDownEvent> keyDown(HasKeyDownHandlers source) {
-        return Observable.create(s -> register(s, source.addKeyDownHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addKeyDownHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<KeyPressEvent> keyPress(HasKeyPressHandlers source) {
-        return Observable.create(s -> register(s, source.addKeyPressHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addKeyPressHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<KeyUpEvent> keyUp(HasKeyUpHandlers source) {
-        return Observable.create(s -> register(s, source.addKeyUpHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addKeyUpHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<LoadEvent> load(HasLoadHandlers source) {
-        return Observable.create(s -> register(s, source.addLoadHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addLoadHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<LoadedMetadataEvent> loadedMetadata(HasLoadedMetadataHandlers source) {
-        return Observable.create(s -> register(s, source.addLoadedMetadataHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addLoadedMetadataHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<LoseCaptureEvent> loseCapture(HasLoseCaptureHandlers source) {
-        return Observable.create(s -> register(s, source.addLoseCaptureHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addLoseCaptureHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<MouseDownEvent> mouseDown(HasMouseDownHandlers source) {
-        return Observable.create(s -> register(s, source.addMouseDownHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addMouseDownHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<MouseMoveEvent> mouseMove(HasMouseMoveHandlers source) {
-        return Observable.create(s -> register(s, source.addMouseMoveHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addMouseMoveHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<MouseOutEvent> mouseOut(HasMouseOutHandlers source) {
-        return Observable.create(s -> register(s, source.addMouseOutHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addMouseOutHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<MouseOverEvent> mouseOver(HasMouseOverHandlers source) {
-        return Observable.create(s -> register(s, source.addMouseOverHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addMouseOverHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<MouseUpEvent> mouseUp(HasMouseUpHandlers source) {
-        return Observable.create(s -> register(s, source.addMouseUpHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addMouseUpHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<MouseWheelEvent> mouseWheel(HasMouseWheelHandlers source) {
-        return Observable.create(s -> register(s, source.addMouseWheelHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addMouseWheelHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static <T> Observable<OpenEvent<T>> open(HasOpenHandlers<T> source) {
-        return Observable.create(s -> register(s, source.addOpenHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addOpenHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<ProgressEvent> progress(HasProgressHandlers source) {
-        return Observable.create(s -> register(s, source.addProgressHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addProgressHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<RangeChangeEvent> rangeChange(HasRows source) {
-        return Observable.create(s -> register(s, source.addRangeChangeHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addRangeChangeHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<ResizeEvent> resize(HasResizeHandlers source) {
-        return Observable.create(s -> register(s, source.addResizeHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addResizeHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<RowCountChangeEvent> rowCountChange(HasRows source) {
-        return Observable.create(s -> register(s, source.addRowCountChangeHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addRowCountChangeHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<ScrollEvent> scroll(HasScrollHandlers source) {
-        return Observable.create(s -> register(s, source.addScrollHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addScrollHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static <T> Observable<SelectionEvent<T>> selection(HasSelectionHandlers<T> source) {
-        return Observable.create(s -> register(s, source.addSelectionHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addSelectionHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<SelectionChangeEvent> selectionChange(SelectionChangeEvent.HasSelectionChangedHandlers source) {
-        return Observable.create(s -> register(s, source.addSelectionChangeHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addSelectionChangeHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<SelectionChangeEvent> selectionChange(SelectionModel source) {
-        return Observable.create(s -> register(s, source.addSelectionChangeHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addSelectionChangeHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static <V> Observable<ShowRangeEvent<V>> showRange(HasShowRangeHandlers<V> source) {
-        return Observable.create(s -> register(s, source.addShowRangeHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addShowRangeHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<TouchCancelEvent> touchCancel(HasTouchCancelHandlers source) {
-        return Observable.create(s -> register(s, source.addTouchCancelHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addTouchCancelHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<TouchEndEvent> touchEnd(HasTouchEndHandlers source) {
-        return Observable.create(s -> register(s, source.addTouchEndHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addTouchEndHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<TouchMoveEvent> touchMove(HasTouchMoveHandlers source) {
-        return Observable.create(s -> register(s, source.addTouchMoveHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addTouchMoveHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static Observable<TouchStartEvent> touchStart(HasTouchStartHandlers source) {
-        return Observable.create(s -> register(s, source.addTouchStartHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addTouchStartHandler(s::onNext)), uiBackpressureMode());
     }
 
     public static <T> Observable<ValueChangeEvent<T>> valueChange(HasValueChangeHandlers<T> source) {
-        return Observable.create(s -> register(s, source.addValueChangeHandler(s::onNext)));
+        return Observable.create(s -> register(s, source.addValueChangeHandler(s::onNext)), uiBackpressureMode());
     }
 }
