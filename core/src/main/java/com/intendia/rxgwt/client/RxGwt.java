@@ -8,7 +8,7 @@ import static rx.Observable.timer;
 
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.user.client.Timer;
+import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -33,7 +33,11 @@ public class RxGwt {
     }
 
     public static <T> Observable.Operator<T, T> debounce(long windowDuration, TimeUnit unit) {
-        return new OperatorDebounceTimer<>(windowDuration, unit);
+        return debounce(windowDuration, unit, Scheduler.get());
+    }
+
+    public static <T> Observable.Operator<T, T> debounce(long windowDuration, TimeUnit unit, Scheduler scheduler) {
+        return new OperatorDebounceTimer<>(windowDuration, unit, scheduler);
     }
 
     public static <T> Observable.Operator<T, T> debounceFinally() {
@@ -81,9 +85,11 @@ public class RxGwt {
     }
 
     private static class OperatorDebounceTimer<T> implements Observable.Operator<T, T> {
+        private final Scheduler scheduler;
         private final int timeInMilliseconds;
 
-        private OperatorDebounceTimer(long windowDuration, TimeUnit unit) {
+        private OperatorDebounceTimer(long windowDuration, TimeUnit unit, Scheduler scheduler) {
+            this.scheduler = scheduler;
             this.timeInMilliseconds = (int) unit.toMillis(windowDuration);
         }
 
@@ -91,12 +97,13 @@ public class RxGwt {
             return new Subscriber<T>(child) {
                 private double lastOnNext = 0;
                 private @Nullable T last = null;
-                private Timer timer = new Timer() {
-                    @Override public void run() {
+                private RepeatingCommand action = new RepeatingCommand() {
+                    @Override public boolean execute() {
                         if (last != null) {
                             child.onNext(last);
                             last = null;
                         }
+                        return false;
                     }
                 };
 
@@ -109,7 +116,7 @@ public class RxGwt {
                     } else {
                         if (last == null) {
                             // wait till timer fires, this is faster than re-schedule on each element
-                            timer.schedule(timeInMilliseconds);
+                            scheduler.scheduleFixedDelay(action, timeInMilliseconds);
                         }
                         last = v;
                     }
@@ -187,7 +194,7 @@ public class RxGwt {
      * buffer is emitted, and the event is propagated to all subscribed {@link Subscriber}s.
      *
      * @param <T> the buffered value type
-     * @see Scheduler#scheduleFinally(Scheduler.RepeatingCommand)
+     * @see Scheduler#scheduleFinally(RepeatingCommand)
      */
     private static class OperatorBufferFinally<T> implements Observable.Operator<List<T>, T> {
         private final Scheduler scheduler;
