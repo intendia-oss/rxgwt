@@ -1,4 +1,4 @@
-package com.intendia.rxgwt.example.client;
+package com.intendia.rxgwt.example.widgets.client;
 
 import static com.google.gwt.dom.client.Style.WhiteSpace.NOWRAP;
 import static com.intendia.rxgwt.user.RxHandlers.selection;
@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.subjects.PublishSubject;
 
-public class WidgetExample implements EntryPoint {
+public class WidgetsExample implements EntryPoint {
 
     public void onModuleLoad() {
         NotificationMole mole = new NotificationMole();

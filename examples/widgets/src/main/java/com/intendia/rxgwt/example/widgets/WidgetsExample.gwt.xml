@@ -1,10 +1,10 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.7.0//EN" "http://gwtproject.org/doctype/2.7.0/gwt-module.dtd">
-<module rename-to="widget">
+<module rename-to="widgets">
     <inherits name="com.google.gwt.user.theme.clean.Clean"/>
     <inherits name="com.google.gwt.user.User"/>
     <inherits name="com.intendia.rxgwt.RxUser"/>
 
-    <entry-point class="com.intendia.rxgwt.example.client.WidgetExample"/>
+    <entry-point class="com.intendia.rxgwt.example.widgets.client.WidgetsExample"/>
 
     <collapse-all-properties/>
 </module>

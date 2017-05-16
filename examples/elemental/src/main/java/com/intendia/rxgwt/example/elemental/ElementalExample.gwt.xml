@@ -2,9 +2,8 @@
 <module rename-to="elemental">
     <inherits name="com.google.gwt.core.Core"/>
     <inherits name="com.intendia.rxgwt.RxElemental"/>
-    <inherits name="elemental.Elemental"/>
 
-    <entry-point class="com.intendia.rxgwt.example.client.ElementalExample"/>
+    <entry-point class="com.intendia.rxgwt.example.elemental.client.ElementalExample"/>
 
     <collapse-all-properties/>
 </module>

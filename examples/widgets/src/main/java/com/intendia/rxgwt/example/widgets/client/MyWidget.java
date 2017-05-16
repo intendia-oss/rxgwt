@@ -1,4 +1,4 @@
-package com.intendia.rxgwt.example.client;
+package com.intendia.rxgwt.example.widgets.client;
 
 import static com.intendia.rxgwt.user.RxHandlers.change;
 import static com.intendia.rxgwt.user.RxHandlers.click;

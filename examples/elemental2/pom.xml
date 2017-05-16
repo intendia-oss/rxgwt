@@ -6,9 +6,9 @@
         <artifactId>rxgwt-examples</artifactId>
         <version>HEAD-SNAPSHOT</version>
     </parent>
-    <artifactId>rxgwt-example-widgets</artifactId>
+    <artifactId>rxgwt-example-elemental2</artifactId>
     <packaging>gwt-app</packaging>
-    <name>RxGWT :: Examples :: Widgets</name>
+    <name>RxGWT :: Examples :: Elemental 2</name>
 
     <dependencies>
         <dependency>
@@ -29,6 +29,10 @@
             <artifactId>gwt-dev</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.google.elemental2</groupId>
+            <artifactId>elemental2-dom</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
         </dependency>
@@ -40,7 +44,7 @@
                 <groupId>net.ltgt.gwt.maven</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
                 <configuration>
-                    <moduleName>com.intendia.rxgwt.example.widgets.WidgetsExample</moduleName>
+                    <moduleName>com.intendia.rxgwt.example.elemental2.Elemental2Example</moduleName>
                 </configuration>
             </plugin>
             <plugin>

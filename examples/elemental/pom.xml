@@ -44,7 +44,7 @@
                 <groupId>net.ltgt.gwt.maven</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
                 <configuration>
-                    <moduleName>com.intendia.rxgwt.example.ElementalExample</moduleName>
+                    <moduleName>com.intendia.rxgwt.example.elemental.ElementalExample</moduleName>
                 </configuration>
             </plugin>
             <plugin>

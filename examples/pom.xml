@@ -12,6 +12,7 @@
 
     <modules>
         <module>elemental</module>
+        <module>elemental2</module>
         <module>widgets</module>
     </modules>
 

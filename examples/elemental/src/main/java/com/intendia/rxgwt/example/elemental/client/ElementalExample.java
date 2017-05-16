@@ -1,4 +1,4 @@
-package com.intendia.rxgwt.example.client;
+package com.intendia.rxgwt.example.elemental.client;
 
 import static elemental.events.Event.MOUSEMOVE;
 import static elemental.events.Event.TOUCHMOVE;
