@@ -24,7 +24,11 @@ import rx.Observable;
 import rx.functions.Func1;
 import rx.subscriptions.Subscriptions;
 
-/** https://developer.mozilla.org/en-US/docs/Web/Events */
+/**
+ * This is a experimental (breaking changes between versions) API to add elemental2 typed events.
+ *
+ * https://developer.mozilla.org/en-US/docs/Web/Events
+ */
 public interface RxElemental2 {
 
     // Network Events
@@ -75,12 +79,13 @@ public interface RxElemental2 {
     EType<MouseEvent, EventTarget> mousemove = new EType<>("mousemove");
     EType<MouseEvent, EventTarget> mousedown = new EType<>("mousedown");
     EType<MouseEvent, EventTarget> mouseup = new EType<>("mouseup");
-    EType<TouchEvent, Element> auxclick = new EType<>("auxclick");
-    EType<TouchEvent, Element> click = new EType<>("click");
-    EType<TouchEvent, Element> contextmenu = new EType<>("contextmenu");
+    EType<MouseEvent, Element> auxclick = new EType<>("auxclick");
+    EType<MouseEvent, Element> click = new EType<>("click");
+    EType<MouseEvent, Element> dblclick = new EType<>("dblclick");
+    EType<MouseEvent, Element> contextmenu = new EType<>("contextmenu");
     EType<WheelEvent, EventTarget> wheel = new EType<>("wheel");
-    EType<TouchEvent, Element> mouseleave = new EType<>("mouseleave");
-    EType<TouchEvent, Element> mouseout = new EType<>("mouseout");
+    EType<MouseEvent, Element> mouseleave = new EType<>("mouseleave");
+    EType<MouseEvent, Element> mouseout = new EType<>("mouseout");
     EType<Event, Document> pointerlockchange = new EType<>("pointerlockchange");
     EType<Event, Document> pointerlockerror = new EType<>("pointerlockerror");
 
@@ -103,6 +108,7 @@ public interface RxElemental2 {
     EType<HashChangeEvent, Window> hashchange = new EType<>("hashchange");
     EType<InputEvent, Element> input = new EType<>("input");
     EType<Event, Document> readystatechange = new EType<>("readystatechange");
+    EType<InputEvent, Element> change = new EType<>("change");
 
     // Uncategorized Events
     EType<Event, Element> invalid = new EType<>("invalid");
