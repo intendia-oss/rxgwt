@@ -15,11 +15,20 @@
             <groupId>com.intendia.gwt.rxgwt</groupId>
             <artifactId>rxgwt</artifactId>
             <version>${project.version}</version>
-            <type>gwt-lib</type>
+        </dependency>
+        <dependency>
+            <groupId>com.intendia.gwt.rxgwt</groupId>
+            <artifactId>rxgwt</artifactId>
+            <version>${project.version}</version>
+            <classifier>sources</classifier>
         </dependency>
         <dependency>
             <groupId>com.intendia.gwt</groupId>
             <artifactId>rxjava-gwt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.gwt.elemento</groupId>
+            <artifactId>elemento-core</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
