@@ -2,6 +2,7 @@
 <module rename-to="elemental2">
     <inherits name="com.google.gwt.core.Core"/>
     <inherits name="com.intendia.rxgwt.RxElemento"/>
+    <inherits name="elemental2.webstorage.WebStorage"/>
 
     <entry-point class="com.intendia.rxgwt.example.elemental2.client.Elemental2Example"/>
 
