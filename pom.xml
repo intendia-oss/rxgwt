@@ -10,7 +10,7 @@
 
     <groupId>com.intendia.gwt.rxgwt</groupId>
     <artifactId>rxgwt-parent</artifactId>
-    <version>HEAD-SNAPSHOT</version>
+    <version>0.3</version>
     <packaging>pom</packaging>
 
     <name>RxGWT Parent</name>
@@ -42,7 +42,7 @@
         <connection>scm:git:https://github.com/intendia-oss/rxgwt.git</connection>
         <developerConnection>scm:git:git@github.com:intendia-oss/rxgwt.git</developerConnection>
         <url>https://github.com/intendia-oss/rxgwt</url>
-        <tag>HEAD</tag>
+        <tag>v0.3</tag>
     </scm>
 
     <issueManagement>
