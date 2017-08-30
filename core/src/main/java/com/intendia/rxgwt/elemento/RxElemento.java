@@ -11,14 +11,14 @@ import rx.functions.Func1;
 public interface RxElemento {
 
     static <T extends Event> Observable<T> fromEvent(EventTarget src, EventType<T, ?> type) {
-        return RxElemental2.fromEvent(src, type.name).map(Js::cast);
+        return RxElemental2.fromEvent(src, type.getName()).map(Js::cast);
     }
 
     static <T extends Event> Observable<T> fromEvent(EventTarget src, EventType<T, ?> type, boolean useCapture) {
-        return RxElemental2.fromEvent(src, type.name, useCapture).map(Js::cast);
+        return RxElemental2.fromEvent(src, type.getName(), useCapture).map(Js::cast);
     }
 
     static <T extends Event, V> Observable<V> fromEvent(EventTarget src, EventType<T, ?> type, Func1<? super T, V> fn) {
-        return RxElemental2.fromEvent(src, type.name, false).map(Js::<T>cast).map(fn);
+        return RxElemental2.fromEvent(src, type.getName(), false).map(Js::<T>cast).map(fn);
     }
 }

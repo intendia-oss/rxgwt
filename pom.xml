@@ -89,7 +89,7 @@
             <dependency>
                 <groupId>org.jboss.gwt.elemento</groupId>
                 <artifactId>elemento-core</artifactId>
-                <version>0.5.0</version>
+                <version>HEAD-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.google.code.findbugs</groupId>
