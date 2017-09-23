@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.intendia.gwt.rxgwt</groupId>
+        <groupId>com.intendia.gwt.rxgwt2</groupId>
         <artifactId>rxgwt-parent</artifactId>
         <version>HEAD-SNAPSHOT</version>
     </parent>
@@ -13,7 +13,7 @@
     <dependencies>
         <dependency>
             <groupId>com.intendia.gwt</groupId>
-            <artifactId>rxjava-gwt</artifactId>
+            <artifactId>rxjava2-gwt</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
@@ -56,7 +56,7 @@
                 <artifactId>gwt-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
-                    <moduleName>com.intendia.rxgwt.RxGwt</moduleName>
+                    <moduleName>com.intendia.rxgwt2.RxGwt</moduleName>
                     <skipModule>true</skipModule>
                 </configuration>
             </plugin>
