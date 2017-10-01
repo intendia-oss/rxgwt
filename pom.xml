@@ -78,7 +78,7 @@
             <dependency>
                 <groupId>com.intendia.gwt</groupId>
                 <artifactId>rxjava2-gwt</artifactId>
-                <version>HEAD-SNAPSHOT</version>
+                <version>2.1.2-beta1</version>
             </dependency>
             <dependency>
                 <groupId>com.google.elemental2</groupId>
@@ -88,7 +88,7 @@
             <dependency>
                 <groupId>org.jboss.gwt.elemento</groupId>
                 <artifactId>elemento-core</artifactId>
-                <version>HEAD-SNAPSHOT</version>
+                <version>0.6.1</version>
             </dependency>
             <dependency>
                 <groupId>com.google.code.findbugs</groupId>
