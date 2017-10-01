@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.intendia.gwt.rxgwt2</groupId>
         <artifactId>rxgwt-examples</artifactId>
-        <version>2.1</version>
+        <version>HEAD-SNAPSHOT</version>
     </parent>
     <artifactId>rxgwt-example-elemental</artifactId>
     <packaging>gwt-app</packaging>
