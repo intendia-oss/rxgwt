@@ -1,6 +1,6 @@
 # RxGWT: Reactive Extensions for GWT 
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.intendia.gwt.rxgwt/rxgwt-parent/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.intendia.gwt.rxgwt/rxgwt-parent)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.intendia.gwt.rxgwt2/rxgwt-parent/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.intendia.gwt.rxgwt2/rxgwt-parent)
 [![Build Status](https://travis-ci.org/intendia-oss/rxgwt.svg)](https://travis-ci.org/intendia-oss/rxgwt) 
 [![Join the chat at https://gitter.im/intendia-oss/rxgwt](https://badges.gitter.im/intendia-oss/rxgwt.svg)](https://gitter.im/intendia-oss/rxgwt?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -20,7 +20,7 @@ force to load all optional modules various independent small modules are exposed
 
 ## Download
 
-Releases are deployed to [the Central Repository](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.intendia.gwt.rxgwt%22).
+Releases are deployed to [the Central Repository](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.intendia.gwt.rxgwt2%22).
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository](https://oss.sonatype.org/content/repositories/snapshots/).
 
