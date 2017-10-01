@@ -7,6 +7,7 @@
     <packaging>pom</packaging>
 
     <name>RxGWT Parent</name>
+    <description>RxGWT parent POM.</description>
     <url>https://github.com/intendia-oss/rxgwt</url>
 
     <modules>

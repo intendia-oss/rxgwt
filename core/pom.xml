@@ -9,6 +9,7 @@
     <artifactId>rxgwt</artifactId>
     <packaging>gwt-lib</packaging>
     <name>RxGWT :: Core</name>
+    <description>RxGWT core utilities.</description>
 
     <dependencies>
         <dependency>
