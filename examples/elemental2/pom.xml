@@ -15,11 +15,6 @@
             <groupId>com.intendia.gwt.rxgwt2</groupId>
             <artifactId>rxgwt</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.intendia.gwt.rxgwt2</groupId>
-            <artifactId>rxgwt</artifactId>
-            <version>${project.version}</version>
             <type>gwt-lib</type>
         </dependency>
         <dependency>
