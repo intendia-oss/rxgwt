@@ -3,5 +3,6 @@
 <module>
     <inherits name="com.intendia.rxgwt.RxElemental2"/>
     <inherits name="org.jboss.gwt.elemento.Core"/>
+    <inherits name="com.google.gwt.user.User"/>
     <source path="elemento"/>
 </module>
