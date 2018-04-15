@@ -2,13 +2,13 @@ package com.intendia.rxgwt2.user;
 
 import static io.reactivex.Observable.defer;
 import static io.reactivex.Observable.just;
+import static java.util.Objects.requireNonNull;
 
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;
@@ -26,6 +26,7 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.logging.Level;
@@ -39,26 +40,40 @@ public class RxUser {
                 .startWith(defer(() -> just(source.getSelectedSet())));
     }
 
-    public static <T> Observable<T> bindSingleSelectionChange(SingleSelectionModel<T> source) {
-        return RxHandlers.selectionChange(source).map(e -> source.getSelectedObject())
-                .startWith(defer(() -> just(source.getSelectedObject())));
+    public static <T> Observable<Optional<T>> bindSingleSelectionChange(SingleSelectionModel<T> source) {
+        return RxHandlers.selectionChange(source).map(e -> Optional.ofNullable(source.getSelectedObject()))
+                .startWith(defer(() -> just(Optional.ofNullable(source.getSelectedObject()))));
+    }
+
+    public static <T, V extends HasValueChangeHandlers<T> & TakesValue<T>> Observable<T> bindValueChangeOr(
+            V source, T defaultValue) {
+        requireNonNull(defaultValue, "defaultValue cannot be null");
+        return bindValueChange(source).map(v -> v.orElse(defaultValue));
     }
 
     /** An observable that start with the source value and notify source value changes. */
-    public static <T, V extends HasValueChangeHandlers<T> & TakesValue<T>> Observable<T> bindValueChange(V source) {
+    public static <T, V extends HasValueChangeHandlers<T> & TakesValue<T>> Observable<Optional<T>> bindValueChange(
+            V source) {
         return bindValueChange(source, TakesValue::getValue);
     }
 
+    public static <T, V extends HasValueChangeHandlers<T>> Observable<T> bindValueChangeOr(
+            V source, Function<V, T> get, T defaultValue) {
+        requireNonNull(defaultValue, "defaultValue cannot be null");
+        return bindValueChange(source, get).map(v -> v.orElse(defaultValue));
+    }
+
     /** An observable that start with the source value and notify source value changes. */
-    public static <T, V extends HasValueChangeHandlers<T>> Observable<T> bindValueChange(V source, Function<V, T> get) {
-        return RxHandlers.valueChange(source).map(ValueChangeEvent::getValue)
-                .startWith(defer(() -> just(get.apply(source))));
+    public static <T, V extends HasValueChangeHandlers<T>> Observable<Optional<T>> bindValueChange(
+            V source, Function<V, T> get) {
+        return RxHandlers.valueChange(source).map(ev -> Optional.ofNullable(ev.getValue()))
+                .startWith(defer(() -> just(Optional.ofNullable(get.apply(source)))));
     }
 
     public static Single<Response> fromRequest(RequestBuilder requestBuilder) {
         //noinspection Convert2Lambda
         return Single.create(new SingleOnSubscribe<Response>() {
-            @Override public void subscribe(SingleEmitter<Response> e) throws Exception {
+            @Override public void subscribe(SingleEmitter<Response> e) {
                 try {
                     requestBuilder.setCallback(new RequestCallback() {
                         @Override public void onResponseReceived(Request req, Response res) { e.onSuccess(res); }
