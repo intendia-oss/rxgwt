@@ -53,11 +53,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <!-- just here to make IntelliJ happy -->
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>gwt-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <configuration>
