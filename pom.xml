@@ -79,7 +79,7 @@
             <dependency>
                 <groupId>com.intendia.gwt</groupId>
                 <artifactId>rxjava2-gwt</artifactId>
-                <version>2.1.2-beta1</version>
+                <version>HEAD-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.google.elemental2</groupId>
