@@ -58,6 +58,7 @@ import com.google.gwt.event.logical.shared.ShowRangeHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.cellview.client.ColumnSortEvent;
+import com.google.gwt.user.cellview.client.LoadingStateChangeEvent;
 import com.google.gwt.user.cellview.client.RowHoverEvent;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -231,8 +232,8 @@ public class RxEvents {
         return Observable.create(s -> register(s, source.addDomHandler(s::onNext, LoadedMetadataEvent.getType())));
     }
 
-    @GwtIncompatible("class com.google.gwt.user.cellview.client.LoadingStateChangeEvent do not have a public getType!")
-    private void loadingStateChange() {
+    public static Observable<LoadingStateChangeEvent> loadingStateChange(Widget source) {
+        return Observable.create(s -> register(s, source.addHandler(s::onNext, LoadingStateChangeEvent.TYPE)));
     }
 
     public static Observable<LoseCaptureEvent> loseCapture(Widget source) {
