@@ -3,7 +3,9 @@ package com.intendia.rxgwt2;
 import static com.google.common.base.CaseFormat.LOWER_CAMEL;
 import static com.google.common.base.CaseFormat.UPPER_CAMEL;
 import static com.squareup.javapoet.TypeSpec.classBuilder;
+import static java.lang.reflect.Modifier.isAbstract;
 import static java.lang.reflect.Modifier.isPublic;
+import static java.lang.reflect.Modifier.isStatic;
 import static java.util.Arrays.stream;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
@@ -32,7 +34,6 @@ import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -53,7 +54,8 @@ public class RxGenerator {
                 .addMember("value", "$S", "unused").build();
 
         Set<Class<? extends HasHandlers>> hasHandlers = gwt.getSubTypesOf(HasHandlers.class);
-        Set<Class<? extends Event>> events = gwt.getSubTypesOf(Event.class);
+        Set<Class<? extends Event>> events = gwt.getSubTypesOf(Event.class).stream()
+                .filter(t -> !isAbstract(t.getModifiers())).collect(Collectors.toSet());
         Map<Class<?>, Class<?>> eventsWithGenericsToHandlerMap = gwt.getSubTypesOf(EventHandler.class).stream()
                 .filter(Class::isInterface)
                 .flatMap(h -> stream(h.getDeclaredMethods())
@@ -63,7 +65,6 @@ public class RxGenerator {
                         .map(e -> new Class<?>[] { e, h }))
                 .collect(Collectors.toMap(o -> o[0], o -> o[1]));
 
-        ClassName rxGwt = ClassName.bestGuess("com.intendia.rxgwt2.client.RxGwt");
         ClassName rxUser = ClassName.bestGuess("com.intendia.rxgwt2.user.RxUser");
         String packageName = "com.intendia.rxgwt2.user";
 
@@ -125,28 +126,31 @@ public class RxGenerator {
                 .map(event -> {
                     String name = event.getSimpleName().substring(0, event.getSimpleName().length() - 5);
                     name = UPPER_CAMEL.to(LOWER_CAMEL, name);
-                    Optional<Method> type = stream(event.getDeclaredMethods())
+                    String type = stream(event.getDeclaredMethods())
                             .filter(m -> m.getName().equals("getType") && isPublic(m.getModifiers()))
-                            .findFirst();
-                    if (!type.isPresent()) {
-                        return MethodSpec.methodBuilder(name).addModifiers(Modifier.PRIVATE)
-                                .addAnnotation(AnnotationSpec.builder(GwtIncompatible.class)
-                                        .addMember("value", "$S", event + " do not have a public getType!").build())
+                            .findFirst().map(m -> "getType()").orElse("");
+                    if (type.isEmpty()) type = stream(event.getDeclaredFields())
+                            .filter(f -> isPublic(f.getModifiers()) && isStatic(f.getModifiers()))
+                            .filter(f -> f.getName().equals("TYPE")).findFirst().map(f -> "TYPE").orElse("");
+                    if (!type.isEmpty()) {
+                        boolean isDom = DomEvent.class.isAssignableFrom(event);
+                        TypeVariable<? extends Class<? extends Event>>[] generics = event.getTypeParameters();
+                        Class<?> handler = eventToHandlerIndex.get(event); // only non null for events with generics
+                        return MethodSpec.methodBuilder(name)
+                                .addModifiers(PUBLIC, Modifier.STATIC)
+                                .addTypeVariables(() -> stream(generics).map(TypeVariableName::get).iterator())
+                                .returns(observableOf(event))
+                                .addParameter(Widget.class, "source")
+                                .addCode(block("$[return $T.create(s -> register(s, source.$L(",
+                                        Observable.class, isDom ? "addDomHandler" : "addHandler"))
+                                .addCode(generics.length == 0 ? block("s::onNext") : block("($T) s::onNext",
+                                        ParameterizedTypeName.get(handler, generics[0])))
+                                .addCode(block(", $T.$L)));\n$]", event, type))
                                 .build();
                     }
-                    boolean isDom = DomEvent.class.isAssignableFrom(event);
-                    TypeVariable<? extends Class<? extends Event>>[] generics = event.getTypeParameters();
-                    Class<?> handler = eventToHandlerIndex.get(event); // only non null for events with generics
-                    return MethodSpec.methodBuilder(name)
-                            .addModifiers(PUBLIC, Modifier.STATIC)
-                            .addTypeVariables(() -> stream(generics).map(TypeVariableName::get).iterator())
-                            .returns(observableOf(event))
-                            .addParameter(Widget.class, "source")
-                            .addCode(block("$[return $T.create(s -> register(s, source.$L(",
-                                    Observable.class, isDom ? "addDomHandler" : "addHandler"))
-                            .addCode(generics.length == 0 ? block("s::onNext") : block("($T) s::onNext",
-                                    ParameterizedTypeName.get(handler, generics[0])))
-                            .addCode(block(", $T.getType())));\n$]", event))
+                    return MethodSpec.methodBuilder(name).addModifiers(Modifier.PRIVATE)
+                            .addAnnotation(AnnotationSpec.builder(GwtIncompatible.class)
+                                    .addMember("value", "$S", event + " do not have a public getType!").build())
                             .build();
                 });
     }

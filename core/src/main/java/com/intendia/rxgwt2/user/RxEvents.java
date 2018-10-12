@@ -57,7 +57,10 @@ import com.google.gwt.event.logical.shared.ShowRangeEvent;
 import com.google.gwt.event.logical.shared.ShowRangeHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.place.shared.PlaceChangeEvent;
+import com.google.gwt.place.shared.PlaceChangeRequestEvent;
 import com.google.gwt.user.cellview.client.ColumnSortEvent;
+import com.google.gwt.user.cellview.client.LoadingStateChangeEvent;
 import com.google.gwt.user.cellview.client.RowHoverEvent;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -123,20 +126,12 @@ public class RxEvents {
     private void dateHighlight() {
     }
 
-    @GwtIncompatible("class com.google.gwt.event.dom.client.DomEvent do not have a public getType!")
-    private void dom() {
-    }
-
     public static Observable<DoubleClickEvent> doubleClick(Widget source) {
         return Observable.create(s -> register(s, source.addDomHandler(s::onNext, DoubleClickEvent.getType())));
     }
 
     public static Observable<DragEvent> drag(Widget source) {
         return Observable.create(s -> register(s, source.addDomHandler(s::onNext, DragEvent.getType())));
-    }
-
-    @GwtIncompatible("class com.google.gwt.event.dom.client.DragDropEventBase do not have a public getType!")
-    private void dragDropEven() {
     }
 
     public static Observable<DragEndEvent> dragEnd(Widget source) {
@@ -187,28 +182,12 @@ public class RxEvents {
         return Observable.create(s -> register(s, source.addDomHandler(s::onNext, GestureStartEvent.getType())));
     }
 
-    @GwtIncompatible("class com.google.gwt.event.shared.GwtEvent do not have a public getType!")
-    private void gwt() {
-    }
-
     public static <V> Observable<HighlightEvent<V>> highlight(Widget source) {
         return Observable.create(s -> register(s, source.addHandler((HighlightHandler<V>) s::onNext, HighlightEvent.getType())));
     }
 
-    @GwtIncompatible("class com.google.gwt.event.dom.client.HumanInputEvent do not have a public getType!")
-    private void humanInput() {
-    }
-
     public static Observable<InitializeEvent> initialize(Widget source) {
         return Observable.create(s -> register(s, source.addHandler(s::onNext, InitializeEvent.getType())));
-    }
-
-    @GwtIncompatible("class com.google.gwt.event.dom.client.KeyEvent do not have a public getType!")
-    private void key() {
-    }
-
-    @GwtIncompatible("class com.google.gwt.event.dom.client.KeyCodeEvent do not have a public getType!")
-    private void keyCode() {
     }
 
     public static Observable<KeyDownEvent> keyDown(Widget source) {
@@ -231,16 +210,12 @@ public class RxEvents {
         return Observable.create(s -> register(s, source.addDomHandler(s::onNext, LoadedMetadataEvent.getType())));
     }
 
-    @GwtIncompatible("class com.google.gwt.user.cellview.client.LoadingStateChangeEvent do not have a public getType!")
-    private void loadingStateChange() {
+    public static Observable<LoadingStateChangeEvent> loadingStateChange(Widget source) {
+        return Observable.create(s -> register(s, source.addHandler(s::onNext, LoadingStateChangeEvent.TYPE)));
     }
 
     public static Observable<LoseCaptureEvent> loseCapture(Widget source) {
         return Observable.create(s -> register(s, source.addDomHandler(s::onNext, LoseCaptureEvent.getType())));
-    }
-
-    @GwtIncompatible("class com.google.gwt.event.dom.client.MouseEvent do not have a public getType!")
-    private void mouse() {
     }
 
     public static Observable<MouseDownEvent> mouseDown(Widget source) {
@@ -275,12 +250,12 @@ public class RxEvents {
         return Observable.create(s -> register(s, source.addHandler((OpenHandler<T>) s::onNext, OpenEvent.getType())));
     }
 
-    @GwtIncompatible("class com.google.gwt.place.shared.PlaceChangeEvent do not have a public getType!")
-    private void placeChange() {
+    public static Observable<PlaceChangeEvent> placeChange(Widget source) {
+        return Observable.create(s -> register(s, source.addHandler(s::onNext, PlaceChangeEvent.TYPE)));
     }
 
-    @GwtIncompatible("class com.google.gwt.place.shared.PlaceChangeRequestEvent do not have a public getType!")
-    private void placeChangeRequest() {
+    public static Observable<PlaceChangeRequestEvent> placeChangeRequest(Widget source) {
+        return Observable.create(s -> register(s, source.addHandler(s::onNext, PlaceChangeRequestEvent.TYPE)));
     }
 
     public static Observable<ProgressEvent> progress(Widget source) {
@@ -333,10 +308,6 @@ public class RxEvents {
 
     public static Observable<FormPanel.SubmitCompleteEvent> submitComplete(Widget source) {
         return Observable.create(s -> register(s, source.addHandler(s::onNext, FormPanel.SubmitCompleteEvent.getType())));
-    }
-
-    @GwtIncompatible("class com.google.gwt.event.dom.client.TouchEvent do not have a public getType!")
-    private void touch() {
     }
 
     public static Observable<TouchCancelEvent> touchCancel(Widget source) {
