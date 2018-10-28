@@ -49,7 +49,7 @@ Observable<String> paint$ = keyPress(canvas, '1').map(e -> "paint").startWith("d
 Observable<String> erase$ = keyPress(canvas, '2').map(e -> "erase");
 ```
 
-All the `mouseMove`, `mouseDown`, `tochMove`, `touchStart`, `touchEnd` and `keyPress` static methods are exposed by the 
+All the `mouseMove`, `mouseDown`, `touchMove`, `touchStart`, `touchEnd` and `keyPress` static methods are exposed by the 
 RxGWT API. To find all of them just explore [RxGwt](https://github.com/intendia-oss/rxgwt/blob/master/core/src/main/java/com/intendia/rxgwt/client/RxGwt.java), 
 or [RxHandlers][RxHandlers] and [RxEvents][RxEvents].
 RxEvents and RxHandlers are [auto-generated](https://github.com/intendia-oss/rxgwt/blob/master/generator/src/main/java/com/intendia/rxgwt/RxGenerator.java) 
