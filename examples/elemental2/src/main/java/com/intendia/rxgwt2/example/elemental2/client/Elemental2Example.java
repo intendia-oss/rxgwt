@@ -2,8 +2,8 @@ package com.intendia.rxgwt2.example.elemental2.client;
 
 import static elemental2.dom.DomGlobal.console;
 import static elemental2.dom.DomGlobal.document;
-import static org.jboss.gwt.elemento.core.EventType.mousemove;
-import static org.jboss.gwt.elemento.core.EventType.touchmove;
+import static org.jboss.elemento.EventType.mousemove;
+import static org.jboss.elemento.EventType.touchmove;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.intendia.rxgwt2.elemental2.RxElemental2;

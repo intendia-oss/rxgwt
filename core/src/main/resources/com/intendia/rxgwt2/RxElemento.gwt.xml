@@ -3,6 +3,6 @@
     <inherits name="com.intendia.rxgwt2.RxElemental2"/>
     <inherits name="com.google.gwt.safehtml.SafeHtml"/>
     <inherits name="com.google.web.bindery.event.Event"/>
-    <inherits name="org.jboss.gwt.elemento.Core"/>
+    <inherits name="org.jboss.elemento.Core"/>
     <source path="elemento"/>
 </module>
