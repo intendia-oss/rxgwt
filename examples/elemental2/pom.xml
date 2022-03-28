@@ -22,7 +22,7 @@
             <artifactId>rxjava2-gwt</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss.gwt.elemento</groupId>
+            <groupId>org.jboss.elemento</groupId>
             <artifactId>elemento-core</artifactId>
         </dependency>
         <dependency>

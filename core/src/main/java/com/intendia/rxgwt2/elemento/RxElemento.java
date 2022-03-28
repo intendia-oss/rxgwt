@@ -6,7 +6,7 @@ import elemental2.dom.EventTarget;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 import jsinterop.base.Js;
-import org.jboss.gwt.elemento.core.EventType;
+import org.jboss.elemento.EventType;
 
 public interface RxElemento {
 
